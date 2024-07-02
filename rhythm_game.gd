@@ -1,7 +1,8 @@
 extends Node2D
 
-# The track's Beats Per Minute.
+## The track's Beats Per Minute.
 @export var bpm: int = 124
+
 # We store the number of beats and half-beats per per second. We'll use that to calculate how many beats elapsed in the song.
 var _bps: float = 60.0 / bpm
 var _hbps: float = _bps * 0.5
