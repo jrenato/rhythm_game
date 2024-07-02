@@ -1,38 +1,22 @@
 extends Node2D
 
-## The track's Beats Per Minute.
-@export var bpm: int = 124
-
-# We store the number of beats and half-beats per per second. We'll use that to calculate how many beats elapsed in the song.
-var _bps: float = 60.0 / bpm
-var _hbps: float = _bps * 0.5
-# Stores the index of the last half-beat we passed.
-var _last_half_beat: int = 0
-
-@onready var _stream: AudioStreamPlayer = %AudioStreamPlayer
+# Using the Inspector, we provide our source scene to instantiate it when the
+# player taps a button.
+@export var sprite_fx: PackedScene
 
 
+# We connect to the `Events.scored` signal.
 func _ready() -> void:
-	play_audio()
+	Events.scored.connect(_create_score_fx)
 
 
-func play_audio() -> void:
-	var time_delay: float = AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
-	await get_tree().create_timer(time_delay).timeout
-
-	_stream.play()
-
-
-func _process(_delta: float) -> void:
-	var time: float = (
-		_stream.get_playback_position()
-		+ AudioServer.get_time_since_last_mix()
-		- AudioServer.get_output_latency()
-	)
-
-	# Calculate the current half-beat using
-	# half-beats-per-second
-	var half_beat: int = int(time / _hbps)
-
-	if half_beat > _last_half_beat:
-		_last_half_beat = half_beat
+# The `scored` signal comes with a `msg` dictionary which gives us the global
+# position of the button the player touched and how many points they gained.
+# We create a new instance of our VFX sprite, position it, add it as a child.
+# We change its sprite by calling its `setup()` function.
+func _create_score_fx(msg: Dictionary) -> void:
+	var new_sprite_fx := sprite_fx.instantiate()
+	# We need to the instance to the tree first, otherwise, we'll get an error.
+	# This is because the call to `setup()` accesses child nodes.
+	add_child(new_sprite_fx)
+	new_sprite_fx.setup(msg.position, msg.score)

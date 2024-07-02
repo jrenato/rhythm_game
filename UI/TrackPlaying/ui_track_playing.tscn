@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=3 uid="uid://bx8247ma1vu0c"]
+
+[ext_resource type="PackedScene" uid="uid://cdqo7aumkmapx" path="res://UI/TrackPlaying/ui_score.tscn" id="1_0grn3"]
+[ext_resource type="PackedScene" uid="uid://bvehvkppgre32" path="res://UI/TrackPlaying/ui_metronome.tscn" id="2_y62ky"]
+
+[node name="UITrackPlaying" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="UIScore" parent="MarginContainer" instance=ExtResource("1_0grn3")]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="UIMetronome" parent="MarginContainer" instance=ExtResource("2_y62ky")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8

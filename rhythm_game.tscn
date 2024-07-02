@@ -1,0 +1,40 @@
+[gd_scene load_steps=9 format=3 uid="uid://doqt8err233po"]
+
+[ext_resource type="Texture2D" uid="uid://ci3ho6wysikfo" path="res://UI/background_shapes.png" id="1_e35vk"]
+[ext_resource type="Script" path="res://rhythm_game.gd" id="1_rwws5"]
+[ext_resource type="Script" path="res://synchronizer.gd" id="2_4ku8e"]
+[ext_resource type="PackedScene" uid="uid://bx8247ma1vu0c" path="res://UI/TrackPlaying/ui_track_playing.tscn" id="2_hdhmf"]
+[ext_resource type="PackedScene" uid="uid://c0r3sq4ew6jxu" path="res://VFX/vfx_score.tscn" id="2_qra3d"]
+[ext_resource type="AudioStream" uid="uid://bh617ak5emndp" path="res://Tracks/Cephalopod/Cephalopod.ogg" id="2_v7e7a"]
+[ext_resource type="Script" path="res://hit_spawner.gd" id="3_70rx8"]
+[ext_resource type="PackedScene" uid="uid://dvu7xv6uivbhx" path="res://Hits/hit_beat.tscn" id="4_nliu2"]
+
+[node name="RhythmGame" type="Node2D"]
+script = ExtResource("1_rwws5")
+sprite_fx = ExtResource("2_qra3d")
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="BackgroundTexture" type="TextureRect" parent="Background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_e35vk")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="UITrackPlaying" parent="UI" instance=ExtResource("2_hdhmf")]
+
+[node name="Synchronizer" type="Node" parent="."]
+script = ExtResource("2_4ku8e")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Synchronizer"]
+unique_name_in_owner = true
+stream = ExtResource("2_v7e7a")
+
+[node name="HitSpawner" type="Node" parent="."]
+script = ExtResource("3_70rx8")
+hit_beat = ExtResource("4_nliu2")

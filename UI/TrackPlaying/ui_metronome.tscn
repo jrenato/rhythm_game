@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvehvkppgre32"]
+
+[ext_resource type="Texture2D" uid="uid://kclmei27xgq8" path="res://UI/TrackPlaying/metronome_sprite.png" id="1_mxvon"]
+[ext_resource type="Script" path="res://UI/TrackPlaying/ui_metronome.gd" id="2_a37q5"]
+
+[node name="UIMetronome" type="TextureRect"]
+custom_minimum_size = Vector2(96, 96)
+offset_right = 96.0
+offset_bottom = 96.0
+pivot_offset = Vector2(48, 48)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_mxvon")
+expand_mode = 1
+script = ExtResource("2_a37q5")

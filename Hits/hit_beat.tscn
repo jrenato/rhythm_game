@@ -1,27 +1,20 @@
-[gd_scene load_steps=9 format=3 uid="uid://dvu7xv6uivbhx"]
+[gd_scene load_steps=12 format=3 uid="uid://dvu7xv6uivbhx"]
 
 [ext_resource type="Texture2D" uid="uid://bajso6pl407jk" path="res://Hits/hit_sprites.png" id="1_gxwkq"]
 [ext_resource type="Script" path="res://Hits/hit_beat.gd" id="1_q7ung"]
-[ext_resource type="PackedScene" uid="uid://bpeh33j1dlq34" path="res://UI/custom_label.tscn" id="1_y5byj"]
+[ext_resource type="Theme" uid="uid://ca5jfn34bfghb" path="res://Resources/default_theme.tres" id="3_wsnpw"]
+[ext_resource type="PackedScene" uid="uid://c764g2ad8a6ey" path="res://Hits/target_circle.tscn" id="4_11mhv"]
+[ext_resource type="Shader" path="res://Hits/target_circle.gdshader" id="5_640oo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h8xqj"]
+resource_local_to_scene = true
+shader = ExtResource("5_640oo")
+shader_parameter/torus_thickness = 0.015
+shader_parameter/torus_hardness = -2.0
+shader_parameter/torus_radius = 0.5
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x7sap"]
 radius = 75.0
-
-[sub_resource type="Animation" id="Animation_fdo3k"]
-resource_name = "show"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
 
 [sub_resource type="Animation" id="Animation_r5xjp"]
 length = 0.001
@@ -68,6 +61,22 @@ tracks/1/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_fdo3k"]
+resource_name = "show"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hnxon"]
 _data = {
 "RESET": SubResource("Animation_r5xjp"),
@@ -78,6 +87,15 @@ _data = {
 [node name="HitBeat" type="Node2D"]
 script = ExtResource("1_q7ung")
 
+[node name="TargetCircle" parent="." instance=ExtResource("4_11mhv")]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_h8xqj")
+anchors_preset = -1
+offset_left = -75.0
+offset_top = -75.0
+offset_right = 75.0
+offset_bottom = 75.0
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 texture = ExtResource("1_gxwkq")
@@ -85,7 +103,6 @@ hframes = 6
 
 [node name="Area2D" type="Area2D" parent="."]
 unique_name_in_owner = true
-collision_layer = 0
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
@@ -97,5 +114,21 @@ libraries = {
 "": SubResource("AnimationLibrary_hnxon")
 }
 
-[node name="CustomLabel" parent="." instance=ExtResource("1_y5byj")]
+[node name="Label" type="Label" parent="."]
 unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_wsnpw")
+theme_override_font_sizes/font_size = 75
+text = "00"
+horizontal_alignment = 1
+vertical_alignment = 1

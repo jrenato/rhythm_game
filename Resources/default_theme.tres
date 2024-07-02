@@ -1,0 +1,9 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://ca5jfn34bfghb"]
+
+[ext_resource type="FontFile" uid="uid://27vieb4jdj6" path="res://UI/Fonts/Montserrat-Bold.ttf" id="1_dedu0"]
+
+[resource]
+Label/colors/font_shadow_color = Color(0, 0, 0, 0.54902)
+Label/constants/shadow_offset_x = 2
+Label/constants/shadow_offset_y = 2
+Label/fonts/font = ExtResource("1_dedu0")
