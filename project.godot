@@ -14,3 +14,12 @@ config/name="Rhythm Game"
 run/main_scene="res://RhythmGame.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Events="*res://AutoLoad/events.gd"
+
+[debug]
+
+gdscript/warnings/unused_parameter=0
+gdscript/warnings/unused_signal=0
