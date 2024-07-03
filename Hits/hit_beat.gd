@@ -79,7 +79,7 @@ func _process(delta: float) -> void:
 func setup(data: Dictionary) -> void:
 	# We write `self.order_number` to run through the property's setter
 	# function.
-	self.order_number = data.half_beat
+	self.order_number = data.order_number
 	global_position = data.global_position
 	_sprite.frame = data.color
 

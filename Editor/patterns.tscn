@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dspnfxfl3s3r3"]
+
+[ext_resource type="PackedScene" uid="uid://cj8enrgwf34im" path="res://Tracks/Cephalopod/cephalopod.tscn" id="1_xb7st"]
+
+[node name="Patterns" type="Node2D"]
+
+[node name="Cephalopod" parent="." instance=ExtResource("1_xb7st")]

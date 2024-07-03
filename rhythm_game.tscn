@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://doqt8err233po"]
+[gd_scene load_steps=10 format=3 uid="uid://doqt8err233po"]
 
 [ext_resource type="Texture2D" uid="uid://ci3ho6wysikfo" path="res://UI/background_shapes.png" id="1_e35vk"]
 [ext_resource type="Script" path="res://rhythm_game.gd" id="1_rwws5"]
@@ -8,6 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://bh617ak5emndp" path="res://Tracks/Cephalopod/Cephalopod.ogg" id="2_v7e7a"]
 [ext_resource type="Script" path="res://hit_spawner.gd" id="3_70rx8"]
 [ext_resource type="PackedScene" uid="uid://dvu7xv6uivbhx" path="res://Hits/hit_beat.tscn" id="4_nliu2"]
+[ext_resource type="PackedScene" uid="uid://dspnfxfl3s3r3" path="res://Editor/patterns.tscn" id="9_631ae"]
 
 [node name="RhythmGame" type="Node2D"]
 script = ExtResource("1_rwws5")
@@ -38,3 +39,6 @@ stream = ExtResource("2_v7e7a")
 [node name="HitSpawner" type="Node" parent="."]
 script = ExtResource("3_70rx8")
 hit_beat = ExtResource("4_nliu2")
+
+[node name="Patterns" parent="HitSpawner" instance=ExtResource("9_631ae")]
+unique_name_in_owner = true

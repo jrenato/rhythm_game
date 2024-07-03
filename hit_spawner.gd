@@ -1,8 +1,5 @@
 extends Node
 
-## An array of dictionaries representing instructions on what to spawn.
-var _stack_current = []
-
 ## If `true`, the spawner is actively spawning beats.
 # We use it in `_spawn_beat()` below.
 @export var enabled: bool = true
@@ -12,10 +9,48 @@ var _stack_current = []
 # to instance it.
 @export var hit_beat: PackedScene
 
+## An array of dictionaries representing instructions on what to spawn.
+var _stack_current = []
+
+## Dictionary that stores each stack of instructions.
+# Doing so allows us to pair the stack with the name of the track, which is a
+# string.
+var _stacks = {}
+
+@onready var patterns: Node2D = %Patterns
+
 
 func _ready() -> void:
 	Events.beat_incremented.connect(_spawn_beat)
-		# Add a temporary call to `_generate_stack()`
+	_generate_stacks()
+	_select_stack({"name": "Cephalopod"})
+
+
+## Select the track to play
+func _select_stack(msg: Dictionary) -> void:
+	_stack_current = _stacks[msg.name]
+
+
+## Reads each child of the Pattern node and gets an array of data from them.
+func _generate_stacks() -> void:
+	for pattern in patterns.get_children():
+		# Create a new key pair in the _stacks dictionary.
+		_stacks[pattern.name] = []
+		for chunk in pattern.get_children():
+			# We assign a random color to each section of the track.
+			var sprite_frame: int = randi_range(0, 5)
+			# We get data from each placer instance and append it to the stack.
+			for placer in chunk.get_children():
+				var hit_beat_data: Dictionary = placer.get_data()
+				hit_beat_data.color = sprite_frame
+				_stacks[pattern.name].append(hit_beat_data)
+
+				# Add additional rests if needed.
+				for _i in range(hit_beat_data.duration - 1):
+					_stacks[pattern.name].append({})
+
+	# Free the patterns scene as it's not needed in-game.
+	patterns.queue_free()
 
 
 ## Spawns a button the player can tap.
